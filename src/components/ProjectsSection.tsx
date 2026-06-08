@@ -47,7 +47,7 @@ const projectsData: Project[] = [
       "/src/assets/images/Elotefruit/image18.webp",
     ],
     tech: ["HTML", "CSS", "TypeScript", "React", "Tailwind"],
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com", // TODO: replace with real repo URL
     accentColor: "rose",
   },
   {
@@ -78,7 +78,7 @@ const projectsData: Project[] = [
       "/src/assets/images/AustinPlumbing/image19.webp",
     ],
     tech: ["React", "TypeScript", "Tailwind", "Contentful", "SEO"],
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com", // TODO: replace with real repo URL
     accentColor: "blue",
   },
   {
@@ -97,7 +97,7 @@ const projectsData: Project[] = [
       "/src/assets/images/LetterLeap/image07.webp",
     ],
     tech: ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"],
-    githubUrl: "https://github.com",
+    githubUrl: "https://github.com", // TODO: replace with real repo URL
     accentColor: "emerald",
   },
 ];
@@ -169,13 +169,14 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
   return (
     <section 
       id="projects" 
+      aria-label="Personal projects"
       className="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
     >
       {/* Header */}
       <div className="text-left max-w-3xl mb-16">
-        <div className="inline-block text-xs font-mono text-[#63B3ED] uppercase tracking-wider mb-2">
+        <span className="inline-block text-xs font-mono text-[#63B3ED] uppercase tracking-wider mb-2">
           CRAFTED PROJECTS
-        </div>
+        </span>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
           Personal Projects — <br />
           <span className="text-[#63B3ED]">Real Code, Real Craft.</span>
@@ -190,7 +191,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
         {projectsData.map((project, idx) => {
           const colors = chipColors[project.accentColor];
           return (
-            <div 
+            <article 
               key={project.id}
               className={`rounded-3xl border overflow-hidden transition-all flex flex-col justify-between ${
                 isDark ? "bg-[#0D1422]/90 border-[#63B3ED]/25" : "bg-slate-50 border-gray-200 shadow-sm"
@@ -203,6 +204,9 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                 <img 
                   src={project.previewImage} 
                   alt={project.previewAlt} 
+                  loading="lazy"
+                  width={640}
+                  height={360}
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
@@ -253,7 +257,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
           );
         })}
       </div>
@@ -271,7 +275,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
             const colors = chipColors[project.accentColor];
             return (
               <div key={project.id} className="w-full shrink-0 px-1">
-                <div 
+                <article 
                   className={`rounded-3xl border overflow-hidden transition-all flex flex-col justify-between ${
                     isDark ? "bg-[#0D1422]/90 border-[#63B3ED]/25" : "bg-slate-50 border-gray-200 shadow-sm"
                   }`}
@@ -283,6 +287,9 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                     <img 
                       src={project.previewImage} 
                       alt={project.previewAlt} 
+                      loading="lazy"
+                      width={640}
+                      height={360}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                   </div>
@@ -333,7 +340,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               </div>
             );
           })}

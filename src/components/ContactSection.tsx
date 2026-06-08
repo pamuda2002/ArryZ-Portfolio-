@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { MapPin, Terminal, Check, Send, Globe, ShieldCheck } from "lucide-react";
+import { MapPin, Terminal, Check, Send, ShieldCheck } from "lucide-react";
 import { GithubIcon, InstagramIcon, XIcon, WhatsappIcon } from "../types";
 import SriLankaFlag from "../assets/icons/Sri_Lanka_flag.svg";
 
@@ -56,6 +56,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
   return (
     <section
       id="contact"
+      aria-label="Contact and hire"
       className="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">

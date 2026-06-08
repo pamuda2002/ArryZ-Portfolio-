@@ -122,7 +122,7 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen w-full overflow-x-hidden transition-colors duration-300 relative select-none ${isDark ? "bg-[#030712] text-gray-100" : "bg-white text-[#0D1B2A]"}`}>
+    <main className={`min-h-screen w-full overflow-x-hidden transition-colors duration-300 relative select-none ${isDark ? "bg-[#030712] text-gray-100" : "bg-white text-[#0D1B2A]"}`}>
       
       <BackgroundEffects 
         isDark={isDark} 
@@ -163,6 +163,6 @@ export default function App() {
 
       <Footer isDark={isDark} scrollTo={scrollTo} />
 
-    </div>
+    </main>
   );
 }

@@ -199,6 +199,9 @@ export default function ImageLightbox({
             src={images[currentIndex]}
             alt={`${projectTitle} screenshot ${currentIndex + 1}`}
             onLoad={() => setIsLoaded(true)}
+            loading="lazy"
+            width={1200}
+            height={800}
             className={`max-w-full max-h-[60vh] md:max-h-[65vh] object-contain transition-all duration-300 ease-out rounded-2xl ${
               isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}

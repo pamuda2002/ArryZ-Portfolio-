@@ -32,6 +32,7 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
   return (
     <section 
       id="skills" 
+      aria-label="Technologies and skills"
       className={`py-28 transition-colors duration-300 ${
         isDark ? "bg-[#0a0f18]" : "bg-slate-50"
       }`}
@@ -40,9 +41,9 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-block text-xs font-mono text-[#63B3ED] uppercase tracking-wider mb-2">
+          <span className="inline-block text-xs font-mono text-[#63B3ED] uppercase tracking-wider mb-2">
             MY TOOLBOX
-          </div>
+          </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
             Technologies I Have <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#7C3AED]">Mastered</span>
           </h2>
@@ -150,10 +151,10 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
             ? "bg-[#0D1422]/40 border-gray-800" 
             : "bg-white border-gray-200"
         }`}>
-          <h4 className="text-sm font-bold font-mono mb-2 flex items-center space-x-2">
+          <h3 className="text-sm font-bold font-mono mb-2 flex items-center space-x-2">
             <Terminal className="w-4 h-4 text-[#63B3ED]" />
             <span>Unconventional IDE Note</span>
-          </h4>
+          </h3>
           <p className={`text-xs leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
             I code in <strong>Claude Code</strong>, <strong>Antigravity IDE</strong> and <strong>AI Studio</strong> pipelines. Skipping high school rote curriculum gave me the unique edge to adapt to cutting-edge AI orchestration. I write clean, secure code that works perfectly.
           </p>

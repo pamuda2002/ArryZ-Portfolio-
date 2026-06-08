@@ -128,6 +128,7 @@ export default function StorySection({ isDark }: StorySectionProps) {
   return (
     <section 
       id="story" 
+      aria-label="My origin story"
       className={`py-28 relative overflow-hidden transition-colors duration-300 ${
         isDark ? "bg-[#0a0f18]" : "bg-slate-50"
       }`}

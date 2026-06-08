@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-  title = "ArryZ | Full-Stack Developer",
-  description = "Self-taught full-stack developer from Sri Lanka. I build high-converting landing pages, clean search-engine optimized code, and custom SEO strategy for small businesses and startups.",
+  title = "ArryZ | Full-Stack Developer — Pamuda Jayathilaka",
+  description = "ArryZ (Pamuda Jayathilaka) — Self-taught full-stack developer from Sri Lanka. Building high-conversion landing pages and web apps.",
 } = Astro.props;
 
 const siteUrl = "https://arryz.dev";
@@ -24,14 +24,17 @@ const ogImage = `${siteUrl}/og-image.png`;
     <meta name="description" content={description} />
     <meta name="author" content="Pamuda Jayathilaka (ArryZ)" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={siteUrl} />
+    <link rel="canonical" href={Astro.url.href} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteUrl} />
+    <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ArryZ (Pamuda Jayathilaka) — Full-Stack Developer & Landing Page Specialist" />
     <meta property="og:site_name" content="ArryZ Portfolio" />
     <meta property="og:locale" content="en_US" />
 
@@ -46,6 +49,9 @@ const ogImage = `${siteUrl}/og-image.png`;
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
+    <!-- Preload hero image for LCP -->
+    <link rel="preload" as="image" href="/src/assets/images/arryz.webp" />
+
     <!-- Google Fonts: Syne, Figtree, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -53,6 +59,49 @@ const ogImage = `${siteUrl}/og-image.png`;
       href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Syne:wght@700;800&display=swap"
       rel="stylesheet"
     />
+
+    <!-- JSON-LD Person Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Pamuda Jayathilaka",
+      "alternateName": "ArryZ",
+      "url": "https://arryz.dev",
+      "jobTitle": "Full-Stack Developer & Landing Page Specialist",
+      "description": "Self-taught full-stack developer from Sri Lanka specializing in high-conversion landing pages and web applications.",
+      "image": "https://arryz.dev/src/assets/images/arryz.webp",
+      "email": "arryz.buzinezz@gmail.com",
+      "nationality": {
+        "@type": "Country",
+        "name": "Sri Lanka"
+      },
+      "knowsAbout": [
+        "React", "TypeScript", "Next.js", "Node.js",
+        "PostgreSQL", "Tailwind CSS", "Python",
+        "Landing Page Design", "SEO", "Full-Stack Development"
+      ],
+      "sameAs": [
+        "https://github.com/pamuda2002"
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD WebSite Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ArryZ — Pamuda Jayathilaka",
+      "url": "https://arryz.dev",
+      "description": "Portfolio of ArryZ (Pamuda Jayathilaka), full-stack developer from Sri Lanka.",
+      "author": {
+        "@type": "Person",
+        "name": "Pamuda Jayathilaka",
+        "alternateName": "ArryZ"
+      }
+    }
+    </script>
 
     <style is:global>
       @import "../index.css";

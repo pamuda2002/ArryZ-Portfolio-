@@ -87,6 +87,7 @@ export default function ServicesSection({ isDark, setContactMessage, scrollTo }:
   return (
     <section 
       id="services" 
+      aria-label="Services offered"
       className="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
     >
       {/* Header */}

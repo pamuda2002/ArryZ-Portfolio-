@@ -67,6 +67,7 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
   return (
     <section
       id="hero"
+      aria-label="Hero — ArryZ introduction"
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4 z-10"
     >
       {/* Dual-layered interactive neural background */}
@@ -98,7 +99,7 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
             </div>
 
             {/* Animated split characters */}
-            <h1 className="text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tighter select-none font-display flex flex-nowrap gap-1.5 sm:gap-2 text-left leading-none relative z-10">
+            <h1 aria-label="ArryZ — Full-Stack Developer" className="text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tighter select-none font-display flex flex-nowrap gap-1.5 sm:gap-2 text-left leading-none relative z-10">
               {["A", "r", "r", "y", "Z"].map((char, index) => (
                 <span
                   key={index}
@@ -200,7 +201,9 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
             {/* Photo */}
             <img
               src={isDark ? arryzPhoto : arryzLightPhoto}
-              alt="ArryZ"
+              alt="Pamuda Jayathilaka (ArryZ) — Full-Stack Developer from Sri Lanka"
+              width={380}
+              height={507}
               className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
             />
 

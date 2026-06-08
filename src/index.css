@@ -313,7 +313,7 @@
   }
 }
 
-/* Respect prefers-reduced-motion accessibility setting
+/* Respect prefers-reduced-motion accessibility setting */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -321,5 +321,4 @@
     transition-duration: 0.01ms !important;
   }
 }
-*/
 

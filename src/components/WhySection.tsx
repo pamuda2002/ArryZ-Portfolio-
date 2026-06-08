@@ -76,6 +76,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
   return (
     <section 
       id="why" 
+      aria-label="Why work with ArryZ"
       className={`py-28 transition-colors duration-300 ${
         isDark ? "bg-[#0a0f18]" : "bg-slate-50"
       }`}
