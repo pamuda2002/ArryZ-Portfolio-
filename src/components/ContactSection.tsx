@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { FormEvent } from "react";
 import { MapPin, Terminal, Check, Send, Globe, ShieldCheck } from "lucide-react";
 import { GithubIcon, InstagramIcon, XIcon, WhatsappIcon } from "../types";
 import SriLankaFlag from "../assets/icons/Sri_Lanka_flag.svg";
@@ -14,6 +15,43 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!contactName || !contactEmail || !contactMessage) {
+      alert("Please fill in all telemetry parameters.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://formspree.io/f/mvznargg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name: contactName,
+          email: contactEmail,
+          phone: contactPhone,
+          message: contactMessage,
+        }),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error || "An error occurred while submitting the form. Please try again.");
+      }
+    } catch (error) {
+      alert("A networking transmission failure happened. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -174,14 +212,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
               </div>
             ) : (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (!contactName || !contactEmail || !contactMessage) {
-                    alert("Please fill in all telemetry parameters.");
-                    return;
-                  }
-                  setFormSubmitted(true);
-                }}
+                onSubmit={handleSubmit}
                 className="space-y-5 text-left"
               >
 
@@ -193,13 +224,15 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   <input
                     type="text"
                     required
+                    name="name"
                     value={contactName}
                     onChange={(e) => setContactName(e.target.value)}
                     placeholder="e.g. Acme Local Service Group"
+                    disabled={isSubmitting}
                     className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
                       ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
                       : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                      }`}
+                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                   />
                 </div>
 
@@ -213,13 +246,15 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                     <input
                       type="email"
                       required
+                      name="email"
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="e.g. founder@acme.com"
+                      disabled={isSubmitting}
                       className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
                         ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
                         : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                        }`}
+                        } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     />
                   </div>
 
@@ -230,13 +265,15 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                     </label>
                     <input
                       type="tel"
+                      name="phone"
                       value={contactPhone}
                       onChange={(e) => setContactPhone(e.target.value)}
                       placeholder="e.g. +1 (555) 000-0000"
+                      disabled={isSubmitting}
                       className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
                         ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
                         : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                        }`}
+                        } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     />
                   </div>
                 </div>
@@ -249,10 +286,11 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                     </label>
                     <button
                       type="button"
+                      disabled={isSubmitting}
                       onClick={() => {
                         setContactMessage("Hi ArryZ, I need a high-converting, blazing fast landing page for my local plumbing business. We get around 1,500 local visitors but very low conversion. Let's optimize it!");
                       }}
-                      className="text-[10px] text-[#63B3ED] hover:underline font-mono"
+                      className="text-[10px] text-[#63B3ED] hover:underline font-mono disabled:opacity-50 disabled:no-underline"
                     >
                       [Insert Local Business Demo Prompt]
                     </button>
@@ -260,22 +298,27 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   <textarea
                     required
                     rows={5}
+                    name="message"
                     value={contactMessage}
                     onChange={(e) => setContactMessage(e.target.value)}
                     placeholder="Describe what you sell, who you target, and your speed bottlenecks..."
+                    disabled={isSubmitting}
                     className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
                       ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
                       : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                      }`}
+                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                   ></textarea>
                 </div>
 
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full py-3.5 sm:py-4 px-4 rounded-xl bg-gradient-to-r from-[#1E40AF] to-[#2563eb] text-white font-bold text-xs sm:text-sm tracking-wide hover:shadow-lg hover:shadow-blue-500/20 transform hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 flex-wrap"
+                  disabled={isSubmitting}
+                  className="w-full py-3.5 sm:py-4 px-4 rounded-xl bg-gradient-to-r from-[#1E40AF] to-[#2563eb] text-white font-bold text-xs sm:text-sm tracking-wide hover:shadow-lg hover:shadow-blue-500/20 transform hover:-translate-y-0.5 transition-all text-center flex items-center justify-center gap-2 flex-wrap disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  <span className="truncate max-w-[85%]">Transmit Project Proposal Telemetry</span>
+                  <span className="truncate max-w-[85%]">
+                    {isSubmitting ? "Transmitting Proposal Telemetry..." : "Transmit Project Proposal Telemetry"}
+                  </span>
                   <Send className="w-4 h-4 shrink-0" />
                 </button>
 

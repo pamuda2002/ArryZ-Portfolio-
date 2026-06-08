@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Sun, Moon, Clock, Menu, X } from "lucide-react";
 import SriLankaFlag from "../assets/icons/Sri_Lanka_flag.svg";
-import Logo from "../assets/images/Logo.png";
+import Logo from "../assets/images/Logo.webp";
+
 
 interface NavbarProps {
   isDark: boolean;
