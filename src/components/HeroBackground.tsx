@@ -114,11 +114,14 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
       resizeObserver.observe(containerRef.current);
     }
 
+    let isIntersecting = true;
+    let observer: IntersectionObserver | null = null;
+
     // Main Canvas Render Loop
     // On mobile, skip every other frame to reduce GPU load (30fps instead of 60fps)
     let frameCount = 0;
     const draw = () => {
-      if (!canvas || !ctx) return;
+      if (!canvas || !ctx || !isIntersecting) return;
       
       frameCount++;
       if (mobile && frameCount % 2 !== 0) {
@@ -246,11 +249,32 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
       animationFrameId = requestAnimationFrame(draw);
     };
 
-    draw();
+    if (typeof IntersectionObserver !== "undefined" && containerRef.current) {
+      isIntersecting = false;
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          const wasIntersecting = isIntersecting;
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting && !wasIntersecting) {
+            cancelAnimationFrame(animationFrameId);
+            draw();
+          } else if (!isIntersecting) {
+            cancelAnimationFrame(animationFrameId);
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(containerRef.current);
+    } else {
+      draw();
+    }
 
     return () => {
       cancelAnimationFrame(animationFrameId);
       resizeObserver.disconnect();
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, [isDark]);
 

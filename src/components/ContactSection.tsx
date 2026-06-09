@@ -25,8 +25,9 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
     }
 
     setIsSubmitting(true);
+    const formId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID || "mvznargg";
     try {
-      const response = await fetch("https://formspree.io/f/mvznargg", {
+      const response = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
