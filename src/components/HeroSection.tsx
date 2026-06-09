@@ -10,13 +10,9 @@ import {
 import HeroBackground from "./HeroBackground";
 import arryzPhoto from "../assets/images/arryz.webp";
 import arryzLightPhoto from "../assets/images/arryz_light.webp";
+import { scrollTo } from "../utils/scroll";
 
-interface HeroSectionProps {
-  isDark: boolean;
-  scrollTo: (id: string) => void;
-}
-
-export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
+export default function HeroSection() {
   // Interactive developer terminal state
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
     "System initialized. Type a query or click automated prompts below.",
@@ -71,7 +67,7 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-16 px-4 z-10"
     >
       {/* Dual-layered interactive neural background */}
-      <HeroBackground isDark={isDark} />
+      <HeroBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
@@ -89,8 +85,7 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
             {/* Clipping container to prevent horizontal scrollbars on mobile */}
             <div className="absolute inset-0 pointer-events-none select-none z-0">
               {/* Opacity watermark glow */}
-              <div className={`absolute -top-12 sm:-top-16 -left-6 sm:-left-12 text-[80px] sm:text-[120px] md:text-[180px] font-display font-extrabold ${isDark ? "text-[#00F0FF]/5" : "text-sky-400/10"
-                }`}>
+              <div className="absolute -top-12 sm:-top-16 -left-6 sm:-left-12 text-[80px] sm:text-[120px] md:text-[180px] font-display font-extrabold text-sky-400/10 dark:text-[#00F0FF]/5">
                 BUILD
               </div>
 
@@ -131,12 +126,12 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
 
           {/* Sub-tagline */}
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-            I Build Web Experiences That <span className={isDark ? "text-[#3B82F6]" : "text-[#7C3AED]"}>Actually Work.</span>
+            I Build Web Experiences That <span className="text-[#7C3AED] dark:text-[#3B82F6]">Actually Work.</span>
             <span className="block text-lg font-normal text-gray-400 mt-2">Self-Taught. Story-Driven. <span className="text-[#2563EB] dark:text-[#3B82F6] font-bold">Built Different.</span></span>
           </h2>
 
           {/* Body copy (small) */}
-          <p className={`max-w-xl text-base sm:text-lg leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+          <p className="max-w-xl text-base sm:text-lg leading-relaxed text-gray-700 dark:text-gray-300">
             Full-stack developer from Sri Lanka. I help small business owners and startups scale their revenue with high-converting landing pages, clean search-engine optimized code, and custom SEO strategy that gets found first.
           </p>
 
@@ -152,10 +147,7 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
 
             <button
               onClick={() => scrollTo("story")}
-              className={`w-full sm:w-auto px-8 py-4 font-bold text-sm rounded-xl border transition-all transform hover:-translate-y-1 justify-center flex items-center ${isDark
-                ? "border-[#2563EB]/30 text-[#2563EB] dark:border-[#3B82F6]/30 dark:text-[#3B82F6] hover:bg-[#2563EB]/10"
-                : "border-[#1E40AF]/30 text-[#1E40AF] hover:bg-[#1E40AF]/5"
-                }`}
+              className="w-full sm:w-auto px-8 py-4 font-bold text-sm rounded-xl border transition-all transform hover:-translate-y-1 justify-center flex items-center border-[#1E40AF]/30 dark:border-[#3B82F6]/30 text-[#1E40AF] dark:text-[#3B82F6] hover:bg-[#1E40AF]/5 dark:hover:bg-[#2563EB]/10"
             >
               My Story & Beats
             </button>
@@ -207,25 +199,32 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
 
             {/* Photo */}
             <img
-              src={isDark ? arryzPhoto : arryzLightPhoto}
-              alt="Pamuda Jayathilaka (ArryZ) — Full-Stack Developer from Sri Lanka"
+              src={arryzPhoto}
+              alt="Pamuda Jayathilaka (ArryZ) — Full-Stack Developer from Sri Lanka (Dark)"
               width={380}
               height={507}
-              className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+              className="hidden dark:block w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
+            />
+            <img
+              src={arryzLightPhoto}
+              alt="Pamuda Jayathilaka (ArryZ) — Full-Stack Developer from Sri Lanka (Light)"
+              width={380}
+              height={507}
+              className="block dark:hidden w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
             />
 
             {/* Bottom Overlay Info Tag */}
             <div className="absolute bottom-4 left-4 right-4 z-20 flex justify-between items-center bg-black/65 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/10 text-[10px] font-mono text-gray-400">
-              <span>IMG_FILE: {isDark ? "arryz.png" : "arryz_light.png"}</span>
+              <span>
+                <span className="hidden dark:inline">IMG_FILE: arryz.png</span>
+                <span className="inline dark:hidden">IMG_FILE: arryz_light.png</span>
+              </span>
               <span>760x1014px</span>
             </div>
           </div>
 
           {/* Interactive Coder Terminal Component (Hero special element) */}
-          <div className={`w-full max-w-[420px] rounded-2xl border mt-6 lg:mt-0 lg:absolute lg:bottom-12 lg:-left-12 lg:z-20 lg:hover:z-30 ${isDark
-            ? "bg-[#080d1a]/85 backdrop-blur-sm border-cyan-500/20 shadow-[0_20px_50px_rgba(0,240,255,0.15)]"
-            : "bg-white/85 backdrop-blur-sm border-gray-300 shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
-            } overflow-hidden p-1 transition-all hover:scale-[1.01] hover:border-cyan-500/40`}>
+          <div className="w-full max-w-[420px] rounded-2xl border mt-6 lg:mt-0 lg:absolute lg:bottom-12 lg:-left-12 lg:z-20 lg:hover:z-30 bg-white/85 dark:bg-[#080d1a]/85 backdrop-blur-sm border-gray-300 dark:border-cyan-500/20 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,240,255,0.15)] overflow-hidden p-1 transition-all hover:scale-[1.01] hover:border-cyan-500/40">
 
             {/* Terminal Title Bar */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700/20">

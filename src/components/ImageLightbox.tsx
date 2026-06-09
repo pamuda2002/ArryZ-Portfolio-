@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ImageLightboxProps {
@@ -22,6 +23,7 @@ export default function ImageLightbox({
 }: ImageLightboxProps) {
   const [animate, setAnimate] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   
   // Touch swipe states
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -32,6 +34,7 @@ export default function ImageLightbox({
 
   // Trigger entering animation on mount
   useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => setAnimate(true), 10);
     return () => clearTimeout(timer);
   }, []);
@@ -130,9 +133,9 @@ export default function ImageLightbox({
   };
   const activeBorder = borderClasses[accentColor] || "border-blue-500";
 
-  return (
+  const lightboxContent = (
     <div
-      className={`fixed inset-0 z-[9900] flex flex-col items-center justify-center p-4 transition-all duration-300 ease-out select-none ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4 transition-all duration-300 ease-out select-none ${
         animate
           ? "bg-slate-950/85 backdrop-blur-xl opacity-100"
           : "bg-slate-950/0 backdrop-blur-none opacity-0"
@@ -262,4 +265,10 @@ export default function ImageLightbox({
       )}
     </div>
   );
+
+  if (mounted && typeof document !== "undefined") {
+    return createPortal(lightboxContent, document.body);
+  }
+
+  return null;
 }

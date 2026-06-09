@@ -3,10 +3,6 @@ import { useEffect, useRef, useState, useMemo } from "react";
 // Detect if the device is a touch/mobile device (no hover support)
 const isMobileDevice = () => typeof window !== 'undefined' && (window.matchMedia('(hover: none)').matches || 'ontouchstart' in window);
 
-interface HeroBackgroundProps {
-  isDark: boolean;
-}
-
 interface Particle {
   x: number;
   y: number;
@@ -18,7 +14,7 @@ interface Particle {
   offsetY: number;
 }
 
-export default function HeroBackground({ isDark }: HeroBackgroundProps) {
+export default function HeroBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
@@ -134,6 +130,9 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
       const height = rect.height;
 
       ctx.clearRect(0, 0, width, height);
+
+      // Read dark theme status directly from DOM class list
+      const isDark = document.documentElement.classList.contains("dark");
 
       // Node Physics Update
       particles.forEach((p) => {
@@ -276,7 +275,7 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
         observer.disconnect();
       }
     };
-  }, [isDark]);
+  }, []);
 
   return (
     <div
@@ -294,11 +293,7 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
           }}
         >
           <div
-            className={`w-full h-full rounded-full animate-orb-float-1 ${
-              isDark
-                ? "bg-gradient-to-br from-[#08112d] via-[#1e3a8a]/35 to-[#312e81]/25"
-                : "bg-gradient-to-br from-[#1E3A8A]/35 via-[#3B82F6]/25 to-[#00F0FF]/15"
-            }`}
+            className="w-full h-full rounded-full animate-orb-float-1 bg-gradient-to-br from-[#1E3A8A]/35 via-[#3B82F6]/25 to-[#00F0FF]/15 dark:from-[#08112d] dark:via-[#1e3a8a]/35 dark:to-[#312e81]/25"
           ></div>
         </div>
 
@@ -310,11 +305,7 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
           }}
         >
           <div
-            className={`w-full h-full rounded-full animate-orb-float-2 ${
-              isDark
-                ? "bg-gradient-to-tr from-[#020617] via-[#0369a1]/25 to-[#1d4ed8]/15"
-                : "bg-gradient-to-tr from-[#1E3A8A]/35 via-[#0284C7]/20 to-[#00F0FF]/15"
-            }`}
+            className="w-full h-full rounded-full animate-orb-float-2 bg-gradient-to-tr from-[#1E3A8A]/35 via-[#0284C7]/20 to-[#00F0FF]/15 dark:from-[#020617] dark:via-[#0369a1]/25 dark:to-[#1d4ed8]/15"
           ></div>
         </div>
 
@@ -326,11 +317,7 @@ export default function HeroBackground({ isDark }: HeroBackgroundProps) {
           }}
         >
           <div
-            className={`w-full h-full rounded-full animate-orb-float-3 ${
-              isDark
-                ? "bg-gradient-to-l from-[#311042] via-[#581c87]/25 to-[#831843]/15"
-                : "bg-gradient-to-l from-[#2E1065]/35 via-[#7C3AED]/20 to-[#EC4899]/15"
-            }`}
+            className="w-full h-full rounded-full animate-orb-float-3 bg-gradient-to-l from-[#2E1065]/35 via-[#7C3AED]/20 to-[#EC4899]/15 dark:from-[#311042] dark:via-[#581c87]/25 dark:to-[#831843]/15"
           ></div>
         </div>
 

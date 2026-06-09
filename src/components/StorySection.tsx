@@ -63,11 +63,7 @@ CREATE TABLE IF NOT EXISTS client_leads (
 CREATE INDEX idx_leads_email ON client_leads(email);`
 };
 
-interface StorySectionProps {
-  isDark: boolean;
-}
-
-export default function StorySection({ isDark }: StorySectionProps) {
+export default function StorySection() {
   // Active Story Chapter beat (1 to 4)
   const [activeStoryChapter, setActiveStoryChapter] = useState(1);
 
@@ -129,9 +125,7 @@ export default function StorySection({ isDark }: StorySectionProps) {
     <section 
       id="story" 
       aria-label="My origin story"
-      className={`py-28 relative overflow-hidden transition-colors duration-300 ${
-        isDark ? "bg-[#0a0f18]" : "bg-slate-50"
-      }`}
+      className="py-28 relative overflow-hidden transition-colors duration-300 bg-slate-50 dark:bg-[#0a0f18]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -141,7 +135,7 @@ export default function StorySection({ isDark }: StorySectionProps) {
             My <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#7C3AED]">Origin Story</span>
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-[#7C3AED] mx-auto mt-4 rounded-full"></div>
-          <p className={`mt-4 text-sm font-mono uppercase tracking-wider ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+          <p className="mt-4 text-sm font-mono uppercase tracking-wider text-slate-500 dark:text-gray-400">
             Dropped out of high school. Learned from first principles. Built different.
           </p>
         </div>
@@ -184,9 +178,7 @@ export default function StorySection({ isDark }: StorySectionProps) {
         <div className="min-h-[500px] grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Story text panel (col-span-7) */}
-          <div className={`lg:col-span-7 p-5 sm:p-8 rounded-3xl ${
-            isDark ? "bg-[#0D1422]/80 border-[#63B3ED]/15" : "bg-white border-gray-200"
-          } border flex flex-col justify-between relative overflow-hidden shadow-2xl`}>
+          <div className="lg:col-span-7 p-5 sm:p-8 rounded-3xl bg-white dark:bg-[#0D1422]/80 border-gray-200 dark:border-[#63B3ED]/15 border flex flex-col justify-between relative overflow-hidden shadow-2xl">
             
             {/* Massive Chapter Number Watermark (opacity 5-8%) */}
             <div className="absolute right-0 bottom-0 text-[260px] sm:text-[340px] font-display font-extrabold text-slate-200/40 dark:text-[#63B3ED]/5 select-none pointer-events-none leading-none -mb-16 -mr-8 font-mono">
@@ -205,23 +197,15 @@ export default function StorySection({ isDark }: StorySectionProps) {
                   Watching AlphaGo Defeat the World Champion.
                 </h3>
 
-                <blockquote className={`border-l-4 border-yellow-500 pl-4 py-1 italic text-lg transition-colors ${
-                  isDark ? "text-gray-300" : "text-slate-700"
-                }`}>
+                <blockquote className="border-l-4 border-yellow-500 pl-4 py-1 italic text-lg transition-colors text-slate-700 dark:text-gray-300">
                   "I was a school kid in Sri Lanka when I watched an AI defeat the world's best Go player. I didn't fully understand it — but I knew I wanted to be part of that world."
                 </blockquote>
 
-                <p className={`text-sm leading-relaxed transition-colors ${
-                  isDark ? "text-gray-400" : "text-slate-600"
-                }`}>
+                <p className="text-sm leading-relaxed transition-colors text-slate-600 dark:text-gray-400">
                   AlphaGo vs Lee Sedol, 2016. That was the pivotal moment that changed my destiny. Seeing machines play Move 37—an action human grandmasters called a 'beautiful anomaly'—sparked a lifelong obsession with technology. I resolved to teach myself how software and intelligence are built from zero.
                 </p>
 
-                <div className={`p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors ${
-                  isDark 
-                    ? "bg-yellow-500/10 text-yellow-300 border-yellow-500/25" 
-                    : "bg-yellow-50 text-yellow-800 border-yellow-200"
-                }`}>
+                <div className="p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors bg-yellow-50 dark:bg-yellow-500/10 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-500/25">
                   <Award className="w-5 h-5 flex-shrink-0 text-yellow-500 mt-0.5" />
                   <span><strong>Discovery Hook:</strong> AI is the ultimate goal. Taught myself Python to read research papers before I even learned high school algorithms.</span>
                 </div>
@@ -239,23 +223,15 @@ export default function StorySection({ isDark }: StorySectionProps) {
                   Leaving High School for a Global Worldview.
                 </h3>
 
-                <blockquote className={`border-l-4 border-rose-500 pl-4 py-1 italic text-lg transition-colors ${
-                  isDark ? "text-gray-300" : "text-slate-700"
-                }`}>
+                <blockquote className="border-l-4 border-rose-500 pl-4 py-1 italic text-lg transition-colors text-slate-700 dark:text-gray-300">
                   "I dropped out of A-levels. Not because I stopped caring — because I needed to learn differently. I spent years gaming, listening to podcasts on history, science, politics, AI. I was building a worldview."
                 </blockquote>
 
-                <p className={`text-sm leading-relaxed transition-colors ${
-                  isDark ? "text-gray-400" : "text-slate-600"
-                }`}>
+                <p className="text-sm leading-relaxed transition-colors text-slate-600 dark:text-gray-400">
                   The traditional high school education path in Sri Lanka felt limited. I left the A-levels path to construct my own knowledge hub. By immersing myself in high-level research podcasts, audiobooks, and global strategy gaming, I developed extreme focus and English language mastery. I learned how systems interact, preparing myself for digital entrepreneurship.
                 </p>
 
-                <div className={`p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors ${
-                  isDark 
-                    ? "bg-rose-500/10 text-rose-300 border-rose-500/25" 
-                    : "bg-rose-50 text-rose-800 border-rose-200"
-                }`}>
+                <div className="p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors bg-rose-50 dark:bg-rose-500/10 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-500/25">
                   <Volume2 className="w-5 h-5 flex-shrink-0 text-rose-500 mt-0.5" />
                   <span><strong>Unconventional Advantage:</strong> Free from rote memorization, I approached programming with fresh, problem-solving eyes.</span>
                 </div>
@@ -273,23 +249,15 @@ export default function StorySection({ isDark }: StorySectionProps) {
                   Obsessive Taught Python, JS, React & Databases.
                 </h3>
 
-                <blockquote className={`border-l-4 border-cyan-500 pl-4 py-1 italic text-lg transition-colors ${
-                  isDark ? "text-gray-300" : "text-slate-700"
-                }`}>
+                <blockquote className="border-l-4 border-cyan-500 pl-4 py-1 italic text-lg transition-colors text-slate-700 dark:text-gray-300">
                   "I taught myself Python. Then HTML, CSS, JavaScript. Then React, Node.js, PostgreSQL, TypeScript, Next.js. No degree. No internship. Just obsessive learning and building."
                 </blockquote>
 
-                <p className={`text-sm leading-relaxed transition-colors ${
-                  isDark ? "text-gray-400" : "text-slate-600"
-                }`}>
+                <p className="text-sm leading-relaxed transition-colors text-slate-600 dark:text-gray-400">
                   Without university guide rails, my education was validated purely by functional code. I built scrapers, automated scripts, custom web backends, and responsive user interfaces. I coded through electricity power cuts, laptop failures, and absolute isolation to achieve true technological competence.
                 </p>
 
-                <div className={`p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors ${
-                  isDark 
-                    ? "bg-cyan-500/10 text-cyan-300 border-cyan-500/25" 
-                    : "bg-cyan-50 text-cyan-800 border-cyan-200"
-                }`}>
+                <div className="p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors bg-cyan-50 dark:bg-cyan-500/10 text-cyan-800 dark:text-cyan-300 border-cyan-200 dark:border-cyan-500/25">
                   <Laptop className="w-5 h-5 flex-shrink-0 text-cyan-500 mt-0.5" />
                   <span><strong>Real-World Skill:</strong> Because my survival depended on it, my code is clean, production-ready, and focuses heavily on high conversions.</span>
                 </div>
@@ -307,23 +275,15 @@ export default function StorySection({ isDark }: StorySectionProps) {
                   Funding the AI Journey, One Landing Page at a Time.
                 </h3>
 
-                <blockquote className={`border-l-4 border-emerald-500 pl-4 py-1 italic text-lg transition-colors ${
-                  isDark ? "text-gray-300" : "text-slate-700"
-                }`}>
+                <blockquote className="border-l-4 border-emerald-500 pl-4 py-1 italic text-lg transition-colors text-slate-700 dark:text-gray-300">
                   "AI is still the destination. Web development is how I fund the journey — and build something real along the way. Right now, I help small businesses grow online. One landing page at a time."
                 </blockquote>
 
-                <p className={`text-sm leading-relaxed transition-colors ${
-                  isDark ? "text-gray-400" : "text-slate-600"
-                }`}>
+                <p className="text-sm leading-relaxed transition-colors text-slate-600 dark:text-gray-400">
                   I treat local businesses like rocket ships. I do not design lazy templated pages; I build highly targeted sales tools with instant loading speeds, semantic SEO architecture, and convincing copy. By working with me, clients fund the dream of an independent Sri Lankan AI laboratory.
                 </p>
 
-                <div className={`p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors ${
-                  isDark 
-                    ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/25" 
-                    : "bg-emerald-50 text-emerald-800 border-emerald-200"
-                }`}>
+                <div className="p-4 rounded-xl border flex items-start space-x-2 text-xs transition-colors bg-emerald-50 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/25">
                   <Zap className="w-5 h-5 flex-shrink-0 text-emerald-500 mt-0.5" />
                   <span><strong>Mutual Success:</strong> When your sales grow, I build my technological future. Win-win partnership.</span>
                 </div>
@@ -374,14 +334,12 @@ export default function StorySection({ isDark }: StorySectionProps) {
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
             
             {/* Box 1: Dynamic Simulator aligned with Chapter */}
-            <div className={`p-5 sm:p-6 rounded-3xl ${
-              isDark ? "bg-[#0D1422] border-gray-800" : "bg-[#F0F4FF] border-blue-100"
-            } border flex-1 flex flex-col justify-between`}>
+            <div className="p-5 sm:p-6 rounded-3xl bg-[#F0F4FF] dark:bg-[#0D1422] border-blue-100 dark:border-gray-800 border flex-1 flex flex-col justify-between">
               
               {activeStoryChapter === 1 && (
                 <div className="space-y-4 text-left">
                   <div className="flex items-center justify-between">
-                    <span className={`text-xs font-mono transition-colors ${isDark ? "text-gray-400" : "text-slate-500"}`}>Interactive Go Board (Move 37)</span>
+                    <span className="text-xs font-mono transition-colors text-slate-500 dark:text-gray-400">Interactive Go Board (Move 37)</span>
                     <button 
                       onClick={resetGoBoard}
                       className="text-[10px] bg-red-500/10 text-red-400 px-2 py-0.5 rounded border border-red-500/20"
@@ -390,16 +348,12 @@ export default function StorySection({ isDark }: StorySectionProps) {
                     </button>
                   </div>
 
-                  <p className={`text-xs transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                  <p className="text-xs transition-colors text-slate-600 dark:text-gray-400">
                     The board below is primed. DeepMind's AI took a path humans deemed impossible. Try placing your own black stone!
                   </p>
 
                   {/* Simple Go Grid */}
-                  <div className={`p-4 rounded-xl border max-w-[200px] mx-auto transition-colors ${
-                    isDark 
-                      ? "bg-amber-900/40 border-amber-900/60" 
-                      : "bg-amber-600/10 border-amber-600/20"
-                  }`}>
+                  <div className="p-4 rounded-xl border max-w-[200px] mx-auto transition-colors bg-amber-600/10 dark:bg-amber-900/40 border-amber-600/20 dark:border-amber-900/60">
                     <div className="grid grid-cols-5 gap-3">
                       {goBoard.map((stone, idx) => (
                         <button
@@ -417,11 +371,7 @@ export default function StorySection({ isDark }: StorySectionProps) {
                     </div>
                   </div>
 
-                  <p className={`text-xs font-mono text-center p-2 rounded border transition-colors ${
-                    isDark 
-                      ? "text-[#63B3ED] bg-[#63B3ED]/5 border-[#63B3ED]/10" 
-                      : "text-blue-700 bg-blue-50 border-blue-200/60"
-                  }`}>
+                  <p className="text-xs font-mono text-center p-2 rounded border transition-colors text-blue-700 dark:text-[#63B3ED] bg-blue-50 dark:bg-[#63B3ED]/5 border-blue-200/60 dark:border-[#63B3ED]/10">
                     {goStatus}
                   </p>
                 </div>
@@ -429,8 +379,8 @@ export default function StorySection({ isDark }: StorySectionProps) {
 
               {activeStoryChapter === 2 && (
                 <div className="space-y-4 text-left">
-                  <span className={`text-xs font-mono transition-colors ${isDark ? "text-gray-400" : "text-slate-500"}`}>Worldview Podcast Radio (Simulated)</span>
-                  <p className={`text-xs transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                  <span className="text-xs font-mono transition-colors text-slate-500 dark:text-gray-400">Worldview Podcast Radio (Simulated)</span>
+                  <p className="text-xs transition-colors text-slate-600 dark:text-gray-400">
                     During my detour, I didn't stop studying. I listened to hours of first-principles knowledge. Toggle the frequencies below:
                   </p>
 
@@ -448,12 +398,8 @@ export default function StorySection({ isDark }: StorySectionProps) {
                           onClick={() => setActivePodcast(pod.id)}
                           className={`w-full p-2 text-left rounded-lg text-xs font-mono flex items-center justify-between border transition-all ${
                             activePodcast === pod.id
-                              ? isDark
-                                ? "bg-rose-500/10 border-rose-500/50 text-rose-300"
-                                : "bg-rose-50 border-rose-300 text-rose-700 font-semibold"
-                              : isDark
-                                ? "bg-black/10 border-transparent text-gray-500 hover:text-gray-300 hover:bg-black/20"
-                                : "bg-white/80 border-blue-100/50 text-slate-600 hover:text-slate-900 hover:bg-white hover:border-blue-200"
+                              ? "bg-rose-50 dark:bg-rose-500/10 border-rose-300 dark:border-rose-500/50 text-rose-700 dark:text-rose-300 font-semibold"
+                              : "bg-white/80 dark:bg-black/10 border-blue-100/50 dark:border-transparent text-slate-600 dark:text-gray-500 hover:text-slate-900 dark:hover:text-gray-300 hover:bg-white dark:hover:bg-black/20 hover:border-blue-200"
                           }`}
                         >
                           <span className="truncate flex items-center">
@@ -468,13 +414,9 @@ export default function StorySection({ isDark }: StorySectionProps) {
                     })}
                   </div>
 
-                  <div className={`p-3 rounded-xl flex items-center space-x-3 transition-colors ${
-                    isDark ? "bg-black/20" : "bg-white border border-blue-100"
-                  }`}>
+                  <div className="p-3 rounded-xl flex items-center space-x-3 transition-colors bg-white dark:bg-black/20 border border-blue-100 dark:border-transparent">
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                    <div className={`flex-1 text-[11px] font-mono truncate transition-colors ${
-                      isDark ? "text-rose-400" : "text-rose-600 font-semibold"
-                    }`}>
+                    <div className="flex-1 text-[11px] font-mono truncate transition-colors text-rose-600 dark:text-rose-400 font-semibold dark:font-normal">
                       Currently Tuning: {activePodcast.toUpperCase()} Podcast Beat
                     </div>
                   </div>
@@ -483,24 +425,20 @@ export default function StorySection({ isDark }: StorySectionProps) {
 
               {activeStoryChapter === 3 && (
                 <div className="space-y-4 text-left">
-                  <span className={`text-xs font-mono transition-colors ${isDark ? "text-gray-400" : "text-slate-500"}`}>Taught Code Library Preview</span>
-                  <p className={`text-xs transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                  <span className="text-xs font-mono transition-colors text-slate-500 dark:text-gray-400">Taught Code Library Preview</span>
+                  <p className="text-xs transition-colors text-slate-600 dark:text-gray-400">
                     I build clean files. Click to inspect one of my early self-taught programming beats:
                   </p>
 
-                  <div className={`flex space-x-1.5 border-b pb-2 ${isDark ? "border-gray-700/30" : "border-blue-100"}`}>
+                  <div className="flex space-x-1.5 border-b pb-2 border-blue-100 dark:border-gray-700/30">
                     {["app.tsx", "main.py", "seo.ts", "db.sql"].map((fileName) => (
                       <button
                         key={fileName}
                         onClick={() => setActiveCodeFile(fileName)}
                         className={`px-2.5 py-1 rounded text-[10px] font-mono transition-all ${
                           activeCodeFile === fileName
-                            ? isDark
-                              ? "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
-                              : "bg-cyan-50 text-cyan-700 border border-cyan-200 font-semibold"
-                            : isDark
-                              ? "text-gray-500 hover:text-gray-300"
-                              : "text-slate-500 hover:text-slate-800"
+                            ? "bg-cyan-50 dark:bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/30 font-semibold dark:font-normal"
+                            : "text-slate-500 dark:text-gray-500 hover:text-slate-800 dark:hover:text-gray-300"
                         }`}
                       >
                         {fileName}
@@ -508,15 +446,11 @@ export default function StorySection({ isDark }: StorySectionProps) {
                     ))}
                   </div>
 
-                  <pre className={`p-3 rounded-xl text-[9px] font-mono overflow-x-auto max-h-44 border leading-tight transition-colors ${
-                    isDark 
-                      ? "bg-[#040811] text-[#22D3EE] border-cyan-500/20" 
-                      : "bg-white text-cyan-800 border-cyan-100"
-                  }`}>
+                  <pre className="p-3 rounded-xl text-[9px] font-mono overflow-x-auto max-h-44 border leading-tight transition-colors bg-white dark:bg-[#040811] text-cyan-800 dark:text-[#22D3EE] border-cyan-100 dark:border-cyan-500/20">
                     <code>{codeFiles[activeCodeFile]}</code>
                   </pre>
 
-                  <div className={`text-[10px] text-center italic ${isDark ? "text-gray-400" : "text-slate-500"}`}>
+                  <div className="text-[10px] text-center italic text-slate-500 dark:text-gray-400">
                     "Clean linted files, ready to launch without errors."
                   </div>
                 </div>
@@ -524,54 +458,34 @@ export default function StorySection({ isDark }: StorySectionProps) {
 
               {activeStoryChapter === 4 && (
                 <div className="space-y-4 text-left">
-                  <span className={`text-xs font-mono transition-colors ${isDark ? "text-gray-400" : "text-slate-500"}`}>Local Small Business Conversion Engine</span>
-                  <p className={`text-xs transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                  <span className="text-xs font-mono transition-colors text-slate-500 dark:text-gray-400">Local Small Business Conversion Engine</span>
+                  <p className="text-xs transition-colors text-slate-600 dark:text-gray-400">
                     Most developers focus on code. I focus on client revenues. This is the math I engineer:
                   </p>
 
                   <div className="space-y-3">
-                    <div className={`p-3 rounded-xl border transition-colors ${
-                      isDark 
-                        ? "bg-black/20 border-emerald-500/10" 
-                        : "bg-white border-blue-100"
-                    }`}>
+                    <div className="p-3 rounded-xl border transition-colors bg-white dark:bg-black/20 border-blue-100 dark:border-emerald-500/10">
                       <div className="flex justify-between text-xs">
-                        <span className={isDark ? "text-gray-400" : "text-slate-600"}>Standard Template Page</span>
-                        <span className={isDark ? "text-red-400" : "text-red-600 font-semibold"}>1.2% Conversion</span>
+                        <span className="text-slate-600 dark:text-gray-400">Standard Template Page</span>
+                        <span className="text-red-600 dark:text-red-400 font-semibold dark:font-normal">1.2% Conversion</span>
                       </div>
-                      <div className={`w-full h-1.5 rounded-full mt-1.5 transition-colors ${
-                        isDark ? "bg-gray-700/30" : "bg-slate-100"
-                      }`}>
-                        <div className={`h-full rounded-full ${
-                          isDark ? "bg-red-400" : "bg-red-500"
-                        }`} style={{ width: "12%" }}></div>
+                      <div className="w-full h-1.5 rounded-full mt-1.5 transition-colors bg-slate-100 dark:bg-gray-700/30">
+                        <div className="h-full rounded-full bg-red-500 dark:bg-red-400" style={{ width: "12%" }}></div>
                       </div>
                     </div>
 
-                    <div className={`p-3 rounded-xl border transition-colors ${
-                      isDark 
-                        ? "bg-black/20 border-emerald-500/25" 
-                        : "bg-emerald-50 border-emerald-200"
-                    }`}>
+                    <div className="p-3 rounded-xl border transition-colors bg-emerald-50 dark:bg-black/20 border-emerald-200 dark:border-emerald-500/25">
                       <div className="flex justify-between text-xs font-bold">
-                        <span className={isDark ? "text-emerald-400" : "text-emerald-800"}>ArryZ Optimized Landing</span>
-                        <span className={isDark ? "text-emerald-400" : "text-emerald-700"}>6.8% Conversion</span>
+                        <span className="text-emerald-800 dark:text-emerald-400">ArryZ Optimized Landing</span>
+                        <span className="text-emerald-700 dark:text-emerald-400">6.8% Conversion</span>
                       </div>
-                      <div className={`w-full h-1.5 rounded-full mt-1.5 transition-colors ${
-                        isDark ? "bg-gray-700/30" : "bg-emerald-100"
-                      }`}>
-                        <div className={`h-full rounded-full animate-pulse ${
-                          isDark ? "bg-emerald-400" : "bg-emerald-500"
-                        }`} style={{ width: "68%" }}></div>
+                      <div className="w-full h-1.5 rounded-full mt-1.5 transition-colors bg-emerald-100 dark:bg-gray-700/30">
+                        <div className="h-full rounded-full animate-pulse bg-emerald-500 dark:bg-emerald-400" style={{ width: "68%" }}></div>
                       </div>
                     </div>
                   </div>
 
-                  <p className={`text-[11px] font-mono p-2 rounded text-center border transition-colors flex items-center justify-center gap-1.5 ${
-                    isDark 
-                      ? "text-emerald-300 bg-emerald-500/5 border-transparent" 
-                      : "text-emerald-700 bg-emerald-50 border-emerald-100"
-                  }`}>
+                  <p className="text-[11px] font-mono p-2 rounded text-center border transition-colors flex items-center justify-center gap-1.5 text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-500/5 border-emerald-100 dark:border-transparent">
                     <Zap className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
                     <span>Over 5x performance improvement.</span>
                   </p>
@@ -581,17 +495,13 @@ export default function StorySection({ isDark }: StorySectionProps) {
             </div>
 
             {/* Box 2: Quote highlight */}
-              <div className={`p-4 rounded-2xl border text-xs font-mono flex items-center justify-between ${
-                isDark 
-                  ? "bg-[#0D1422]/40 border-gray-800" 
-                  : "bg-white border-gray-200"
-              }`}>
-                <span className="opacity-60">Status: Taught in Sri Lanka</span>
-                <span className={`${isDark ? "text-[#63B3ED]" : "text-blue-600"} font-bold flex items-center gap-1.5`}>
-                  <span>Active Worldwide</span>
-                  <Globe className="w-3.5 h-3.5 animate-spin-slow" />
-                </span>
-              </div>
+            <div className="p-4 rounded-2xl border text-xs font-mono flex items-center justify-between bg-white dark:bg-[#0D1422]/40 border-gray-200 dark:border-gray-800">
+              <span className="opacity-60">Status: Taught in Sri Lanka</span>
+              <span className="text-blue-600 dark:text-[#63B3ED] font-bold flex items-center gap-1.5">
+                <span>Active Worldwide</span>
+                <Globe className="w-3.5 h-3.5 animate-spin-slow" />
+              </span>
+            </div>
 
           </div>
 

@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { Globe, Zap, Target } from "lucide-react";
 
-interface WhySectionProps {
-  isDark: boolean;
-}
-
-export default function WhySection({ isDark }: WhySectionProps) {
+export default function WhySection() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   // Touch swipe states
@@ -51,7 +47,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
       icon: Globe,
       iconColor: "text-blue-500 dark:text-[#63B3ED] mb-4 animate-spin-slow",
       footerText: "100% Autodidact Competence",
-      footerColor: isDark ? "border-gray-700/20 text-[#63B3ED]" : "border-slate-200 text-blue-600"
+      footerColor: "border-slate-200 text-blue-600 dark:border-gray-700/20 dark:text-[#63B3ED]"
     },
     {
       id: "experience",
@@ -60,7 +56,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
       icon: Zap,
       iconColor: "text-rose-500 mb-4",
       footerText: "730+ Days of Obsessive Building",
-      footerColor: isDark ? "border-gray-700/20 text-rose-400" : "border-slate-200 text-rose-600"
+      footerColor: "border-slate-200 text-rose-600 dark:border-gray-700/20 dark:text-rose-400"
     },
     {
       id: "client",
@@ -69,7 +65,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
       icon: Target,
       iconColor: "text-emerald-500 mb-4",
       footerText: "Guaranteed Lead Alignment",
-      footerColor: isDark ? "border-gray-700/20 text-emerald-400" : "border-slate-200 text-emerald-600"
+      footerColor: "border-slate-200 text-emerald-600 dark:border-gray-700/20 dark:text-emerald-400"
     }
   ];
 
@@ -77,9 +73,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
     <section 
       id="why" 
       aria-label="Why work with ArryZ"
-      className={`py-28 transition-colors duration-300 ${
-        isDark ? "bg-[#0a0f18]" : "bg-slate-50"
-      }`}
+      className="py-28 transition-colors duration-300 bg-slate-50 dark:bg-[#0a0f18]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -91,7 +85,7 @@ export default function WhySection({ isDark }: WhySectionProps) {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
             Unconventional Path. <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#7C3AED]">Unmatched Focus.</span>
           </h2>
-          <p className={`mt-4 text-sm transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+          <p className="mt-4 text-sm transition-colors text-slate-600 dark:text-gray-400">
             I don't have a piece of paper from a university. Instead, I have working code, real commitment, and client priority.
           </p>
         </div>
@@ -103,14 +97,12 @@ export default function WhySection({ isDark }: WhySectionProps) {
             return (
               <div 
                 key={card.id}
-                className={`p-8 rounded-3xl border text-left flex flex-col justify-between ${
-                  isDark ? "bg-[#0D1422]/90 border-gray-800" : "bg-white border-gray-200 shadow-sm"
-                }`}
+                className="p-8 rounded-3xl border text-left flex flex-col justify-between bg-white border-gray-200 shadow-sm dark:bg-[#0D1422]/90 dark:border-gray-800"
               >
                 <div>
                   <IconComponent className={`w-8 h-8 ${card.iconColor}`} />
                   <h3 className="text-xl font-bold mb-2">{card.title}</h3>
-                  <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                     {card.description}
                   </p>
                 </div>
@@ -136,14 +128,12 @@ export default function WhySection({ isDark }: WhySectionProps) {
               return (
                 <div key={card.id} className="w-full shrink-0 px-1">
                   <div 
-                    className={`p-6 rounded-3xl border text-left flex flex-col justify-between min-h-[300px] ${
-                      isDark ? "bg-[#0D1422]/90 border-gray-800" : "bg-white border-gray-200 shadow-sm"
-                    }`}
+                    className="p-6 rounded-3xl border text-left flex flex-col justify-between min-h-[300px] bg-white border-gray-200 shadow-sm dark:bg-[#0D1422]/90 dark:border-gray-800"
                   >
                     <div>
                       <IconComponent className={`w-8 h-8 ${card.iconColor}`} />
                       <h3 className="text-xl font-bold mb-2">{card.title}</h3>
-                      <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                      <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                         {card.description}
                       </p>
                     </div>

@@ -24,18 +24,12 @@ const skillAccents: Record<string, { bg: string; text: string; shadow: string; b
   "Google Stitch": { bg: "bg-red-500/10", text: "text-red-600 dark:text-red-400", shadow: "hover:shadow-red-500/30", border: "border-red-500/20" }
 };
 
-interface SkillsSectionProps {
-  isDark: boolean;
-}
-
-export default function SkillsSection({ isDark }: SkillsSectionProps) {
+export default function SkillsSection() {
   return (
     <section 
       id="skills" 
       aria-label="Technologies and skills"
-      className={`py-28 transition-colors duration-300 ${
-        isDark ? "bg-[#0a0f18]" : "bg-slate-50"
-      }`}
+      className="py-28 transition-colors duration-300 bg-slate-50 dark:bg-[#0a0f18]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -47,7 +41,7 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
             Technologies I Have <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#7C3AED]">Mastered</span>
           </h2>
-          <p className={`mt-4 text-sm transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+          <p className="mt-4 text-sm transition-colors text-slate-600 dark:text-gray-400">
             Each badge glows in its unique accent color on hover. Taught from the ground up, with obsessive daily usage.
           </p>
         </div>
@@ -123,20 +117,12 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
           {/* Row 3: Learning Next */}
           <div>
             <div className="text-left mb-3 flex items-center space-x-2">
-              <span className={`text-xs font-mono uppercase tracking-widest font-bold transition-colors ${
-                isDark ? "text-emerald-400" : "text-emerald-700"
-              }`}>Learning Next</span>
-              <span className={`text-[9px] font-mono px-2 py-0.5 rounded uppercase transition-colors ${
-                isDark ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/25" : "bg-emerald-50 text-emerald-700 border border-emerald-200"
-              }`}>Coming Soon</span>
+              <span className="text-xs font-mono uppercase tracking-widest font-bold transition-colors text-emerald-700 dark:text-emerald-400">Learning Next</span>
+              <span className="text-[9px] font-mono px-2 py-0.5 rounded uppercase transition-colors bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/25">Coming Soon</span>
             </div>
             
             <div className="flex flex-wrap gap-3">
-              <div className={`px-4 py-2.5 rounded-xl border border-dashed text-sm font-mono flex items-center space-x-2 transition-all ${
-                isDark 
-                  ? "border-cyan-500/30 bg-cyan-500/5 text-cyan-300/80" 
-                  : "border-cyan-300 bg-cyan-50 text-cyan-800"
-              }`}>
+              <div className="px-4 py-2.5 rounded-xl border border-dashed text-sm font-mono flex items-center space-x-2 transition-all border-cyan-300 bg-cyan-50 text-cyan-800 dark:border-cyan-500/30 dark:bg-cyan-500/5 dark:text-cyan-300/80">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-500/50"></span>
                 <span>Flutter (Mobile apps deployment)</span>
               </div>
@@ -146,16 +132,12 @@ export default function SkillsSection({ isDark }: SkillsSectionProps) {
         </div>
 
         {/* Quick Info Box explaining how ArryZ works */}
-        <div className={`mt-12 p-6 rounded-2xl border text-left ${
-          isDark 
-            ? "bg-[#0D1422]/40 border-gray-800" 
-            : "bg-white border-gray-200"
-        }`}>
+        <div className="mt-12 p-6 rounded-2xl border text-left bg-white border-gray-200 dark:bg-[#0D1422]/40 dark:border-gray-800">
           <h3 className="text-sm font-bold font-mono mb-2 flex items-center space-x-2">
             <Terminal className="w-4 h-4 text-[#63B3ED]" />
             <span>Unconventional IDE Note</span>
           </h3>
-          <p className={`text-xs leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+          <p className="text-xs leading-relaxed text-gray-600 dark:text-gray-400">
             I code in <strong>Claude Code</strong>, <strong>Antigravity IDE</strong> and <strong>AI Studio</strong> pipelines. Skipping high school rote curriculum gave me the unique edge to adapt to cutting-edge AI orchestration. I write clean, secure code that works perfectly.
           </p>
         </div>

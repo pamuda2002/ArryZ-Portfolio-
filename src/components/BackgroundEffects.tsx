@@ -1,17 +1,67 @@
-interface BackgroundEffectsProps {
-  isDark: boolean;
-  mousePos: { x: number; y: number };
-  hoveringInteractive: boolean;
-  scrollPercent: number;
-}
+import { useState, useEffect } from "react";
 
-export default function BackgroundEffects({ isDark, mousePos, hoveringInteractive, scrollPercent }: BackgroundEffectsProps) {
+export default function BackgroundEffects() {
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+  const [hoveringInteractive, setHoveringInteractive] = useState(false);
+  const [scrollPercent, setScrollPercent] = useState(0);
+
+  // 1. Scroll percentage calculation
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollHeight > 0) {
+          setScrollPercent((window.scrollY / scrollHeight) * 100);
+        }
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 2. Update mouse position and interactive states — skip on mobile (no cursor)
+  useEffect(() => {
+    // Detect touch/mobile device
+    const isMobile = window.matchMedia('(hover: none)').matches || 'ontouchstart' in window;
+    if (isMobile) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "BUTTON" ||
+        target.tagName === "A" ||
+        target.closest("a") ||
+        target.closest("button") ||
+        target.closest(".interactive-element") ||
+        target.getAttribute("role") === "button"
+      ) {
+        setHoveringInteractive(true);
+      } else {
+        setHoveringInteractive(false);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseover", handleMouseOver);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+    };
+  }, []);
+
   return (
     <>
       {/* 3D Liquid Orbs Background Decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         {/* Navy/Blue Gradient Mesh — reduced blur on mobile for GPU savings */}
-        <div className={`absolute top-0 left-0 w-full h-[150vh] opacity-30 blur-[60px] md:blur-[120px] transition-all duration-700 ${isDark ? "bg-gradient-to-tr from-[#0A0F24] via-[#1E3A8A]/30 to-[#030712]" : "bg-gradient-to-tr from-[#F0F4FF] via-[#E2E8F0] to-[#FFFFFF]"}`}></div>
+        <div className="absolute top-0 left-0 w-full h-[150vh] opacity-30 blur-[60px] md:blur-[120px] transition-all duration-700 bg-gradient-to-tr from-[#F0F4FF] via-[#E2E8F0] to-[#FFFFFF] dark:from-[#0A0F24] dark:via-[#1E3A8A]/30 dark:to-[#030712]"></div>
         
         {/* Floating Orb 2 (Story/Services Section) — smaller on mobile */}
         <div className="absolute top-[40%] left-[2%] w-[250px] h-[250px] md:w-[450px] md:h-[450px] rounded-full bg-[#2563EB] opacity-15 blur-[60px] md:blur-[120px] animate-float-medium will-change-transform"></div>
@@ -27,7 +77,7 @@ export default function BackgroundEffects({ isDark, mousePos, hoveringInteractiv
 
       {/* Desktop-only custom cursor aura — hidden on touch devices to avoid full-viewport repaints */}
       <div 
-        className={`fixed inset-0 pointer-events-none z-50 transition-opacity duration-300 hidden lg:block ${isDark ? "opacity-100" : "opacity-30"}`}
+        className="fixed inset-0 pointer-events-none z-50 transition-opacity duration-300 hidden lg:block opacity-30 dark:opacity-100"
         style={{
           background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.08), transparent 70%)`
         }}

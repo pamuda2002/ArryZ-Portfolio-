@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
 import { ChevronRight, Rocket, Search, Settings } from "lucide-react";
+import { scrollTo } from "../utils/scroll";
 
-interface ServicesSectionProps {
-  isDark: boolean;
-  setContactMessage: (message: string) => void;
-  scrollTo: (id: string) => void;
-}
-
-export default function ServicesSection({ isDark, setContactMessage, scrollTo }: ServicesSectionProps) {
+export default function ServicesSection() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   // Touch swipe states
@@ -111,14 +106,14 @@ export default function ServicesSection({ isDark, setContactMessage, scrollTo }:
           return (
             <div 
               key={service.id}
-              className={`p-8 rounded-3xl ${isDark ? "glass-card-dark" : "glass-card-light"} relative overflow-hidden group flex flex-col justify-between min-h-[350px]`}
+              className="p-8 rounded-3xl glass-card relative overflow-hidden group flex flex-col justify-between min-h-[350px]"
             >
               <div>
                 <div className={`w-12 h-12 rounded-2xl ${service.iconBg} flex items-center justify-center text-2xl mb-6 transform group-hover:scale-110 transition-transform`}>
                   <IconComponent className={`w-5 h-5 ${service.iconColor}`} />
                 </div>
                 <h3 className="text-2xl font-bold mb-3">{service.title}</h3>
-                <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                   {service.description}
                 </p>
               </div>
@@ -133,7 +128,7 @@ export default function ServicesSection({ isDark, setContactMessage, scrollTo }:
                 </div>
                 <button 
                   onClick={() => {
-                    setContactMessage(service.inquiryText);
+                    window.dispatchEvent(new CustomEvent("set-contact-message", { detail: service.inquiryText }));
                     scrollTo("contact");
                   }}
                   className={`text-xs font-mono font-bold ${service.btnColor} flex items-center space-x-1.5`}
@@ -161,14 +156,14 @@ export default function ServicesSection({ isDark, setContactMessage, scrollTo }:
             return (
               <div key={service.id} className="w-full shrink-0 px-1">
                 <div 
-                  className={`p-6 rounded-3xl ${isDark ? "glass-card-dark" : "glass-card-light"} relative overflow-hidden group flex flex-col justify-between min-h-[350px]`}
+                  className="p-6 rounded-3xl glass-card relative overflow-hidden group flex flex-col justify-between min-h-[350px]"
                 >
                   <div>
                     <div className={`w-12 h-12 rounded-2xl ${service.iconBg} flex items-center justify-center text-2xl mb-6 transform group-hover:scale-110 transition-transform`}>
                       <IconComponent className={`w-5 h-5 ${service.iconColor}`} />
                     </div>
                     <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                    <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                    <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                       {service.description}
                     </p>
                   </div>
@@ -183,7 +178,7 @@ export default function ServicesSection({ isDark, setContactMessage, scrollTo }:
                     </div>
                     <button 
                       onClick={() => {
-                        setContactMessage(service.inquiryText);
+                        window.dispatchEvent(new CustomEvent("set-contact-message", { detail: service.inquiryText }));
                         scrollTo("contact");
                       }}
                       className={`text-xs font-mono font-bold ${service.btnColor} flex items-center space-x-1.5`}

@@ -1,19 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sun, Moon, Clock, Menu, X } from "lucide-react";
 import SriLankaFlag from "../assets/icons/Sri_Lanka_flag.svg";
 import Logo from "../assets/images/Logo.webp";
+import { scrollTo } from "../utils/scroll";
 
-
-interface NavbarProps {
-  isDark: boolean;
-  setIsDark: (value: boolean) => void;
-  colomboTime: string;
-  isAwake: boolean;
-  scrollTo: (id: string) => void;
-}
-
-export default function Navbar({ isDark, setIsDark, colomboTime, isAwake, scrollTo }: NavbarProps) {
+export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Sri Lanka time state
+  const [colomboTime, setColomboTime] = useState("");
+  const [isAwake, setIsAwake] = useState(true);
+
+  // Update clock & awake status
+  useEffect(() => {
+    const updateClock = () => {
+      const options: Intl.DateTimeFormatOptions = {
+        timeZone: "Asia/Colombo",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      };
+      const formatter = new Intl.DateTimeFormat([], options);
+      const timeStr = formatter.format(new Date());
+      setColomboTime(timeStr);
+
+      const colomboHour = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" })).getHours();
+      // Awake from 8 AM to 11:30 PM
+      setIsAwake(colomboHour >= 8 && colomboHour < 23);
+    };
+
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleNavClick = (id: string) => {
     scrollTo(id);
@@ -21,10 +41,7 @@ export default function Navbar({ isDark, setIsDark, colomboTime, isAwake, scroll
   };
 
   return (
-    <header className={`sticky top-0 z-[100] transition-all duration-300 ${isDark
-        ? "bg-[#030712]/85 border-b border-[#2563EB]/10 text-gray-100"
-        : "bg-white/85 border-b border-gray-200 text-[#0D1B2A]"
-      } backdrop-blur-sm md:backdrop-blur-md`}>
+    <header className="sticky top-0 z-[100] transition-all duration-300 bg-white/85 dark:bg-[#030712]/85 border-b border-gray-200 dark:border-[#2563EB]/10 text-[#0D1B2A] dark:text-gray-100 backdrop-blur-sm md:backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
 
         {/* Logo Mark left */}
@@ -68,15 +85,22 @@ export default function Navbar({ isDark, setIsDark, colomboTime, isAwake, scroll
 
           {/* Light/Dark Toggle */}
           <button
-            onClick={() => setIsDark(!isDark)}
-            className={`p-2.5 rounded-lg border transition-all ${isDark
-                ? "border-[#2563EB]/20 bg-gray-900 text-yellow-400 hover:bg-gray-800"
-                : "border-gray-300 bg-gray-100 text-[#0D1B2A] hover:bg-gray-200"
-              }`}
+            onClick={() => {
+              const currentDark = document.documentElement.classList.contains("dark");
+              if (currentDark) {
+                document.documentElement.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+              } else {
+                document.documentElement.classList.add("dark");
+                localStorage.setItem("theme", "dark");
+              }
+            }}
+            className="p-2.5 rounded-lg border transition-all border-gray-300 dark:border-[#2563EB]/20 bg-gray-100 dark:bg-gray-900 text-[#0D1B2A] dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-800"
             title="Toggle Light/Dark Theme"
             aria-label="Toggle Theme"
           >
-            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            <Sun className="hidden dark:block w-4 h-4" />
+            <Moon className="block dark:hidden w-4 h-4" />
           </button>
 
           {/* Hire Me CTA Button */}
@@ -102,8 +126,7 @@ export default function Navbar({ isDark, setIsDark, colomboTime, isAwake, scroll
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div id="mobile-menu" className={`md:hidden px-4 pt-2 pb-6 border-t ${isDark ? "bg-[#0D1422] border-gray-800" : "bg-slate-50 border-gray-200"
-          } transition-all`}>
+        <div id="mobile-menu" className="md:hidden px-4 pt-2 pb-6 border-t bg-slate-50 dark:bg-[#0D1422] border-gray-200 dark:border-gray-800 transition-all">
           <div className="flex flex-col space-y-4 pt-2">
             <a href="#story" onClick={() => setMobileMenuOpen(false)} className="text-left py-2 font-medium hover:text-[#3B82F6]">My Story</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="text-left py-2 font-medium hover:text-[#3B82F6]">Services</a>

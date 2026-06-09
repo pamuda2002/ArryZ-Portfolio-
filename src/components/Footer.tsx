@@ -1,14 +1,8 @@
 import { ArrowUp, MapPin } from "lucide-react";
 
-interface FooterProps {
-  isDark: boolean;
-  scrollTo: (id: string) => void;
-}
-
-export default function Footer({ isDark, scrollTo }: FooterProps) {
+export default function Footer() {
   return (
-    <footer className={`py-12 border-t transition-colors ${isDark ? "bg-[#030712] border-gray-800 text-gray-400" : "bg-slate-50 border-gray-200 text-gray-700"
-      }`}>
+    <footer className="py-12 border-t transition-colors bg-slate-50 border-gray-200 text-gray-700 dark:bg-[#030712] dark:border-gray-800 dark:text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
         {/* Left - Legal Credits */}
@@ -24,13 +18,13 @@ export default function Footer({ isDark, scrollTo }: FooterProps) {
         </div>
 
         {/* Right - Scroll to top button */}
-        <button
-          onClick={() => scrollTo("hero")}
-          className="px-4 py-2 text-xs font-mono font-bold rounded-lg border border-gray-700/30 hover:border-gray-500 transition-all flex items-center space-x-2"
+        <a
+          href="#hero"
+          className="px-4 py-2 text-xs font-mono font-bold rounded-lg border border-gray-300 hover:border-gray-500 dark:border-gray-700/30 dark:hover:border-gray-500 transition-all flex items-center space-x-2"
         >
           <ArrowUp className="w-3.5 h-3.5" />
           <span>Scroll To Top</span>
-        </button>
+        </a>
 
       </div>
     </footer>

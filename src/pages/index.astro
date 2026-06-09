@@ -1,8 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import App from "../App";
+import BackgroundEffects from "../components/BackgroundEffects";
+import Navbar from "../components/Navbar";
+import HeroSection from "../components/HeroSection";
+import StorySection from "../components/StorySection";
+import ServicesSection from "../components/ServicesSection";
+import SkillsSection from "../components/SkillsSection";
+import ProjectsSection from "../components/ProjectsSection";
+import WhySection from "../components/WhySection";
+import ContactSection from "../components/ContactSection";
+import Footer from "../components/Footer";
 ---
 
 <Layout>
-  <App client:load />
+  <BackgroundEffects client:load />
+  
+  <Navbar client:load />
+  
+  <main class="min-h-screen w-full overflow-x-hidden transition-colors duration-300 relative select-none bg-white text-[#0D1B2A] dark:bg-[#030712] dark:text-gray-100">
+    <HeroSection client:load />
+
+    <StorySection client:visible />
+
+    <ServicesSection client:visible />
+
+    <SkillsSection />
+
+    <ProjectsSection client:visible />
+
+    <WhySection client:visible />
+
+    <ContactSection client:visible />
+
+    <Footer />
+  </main>
 </Layout>

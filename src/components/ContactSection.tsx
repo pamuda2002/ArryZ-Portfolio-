@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { MapPin, Terminal, Check, Send, ShieldCheck } from "lucide-react";
 import { GithubIcon, InstagramIcon, XIcon, WhatsappIcon } from "../types";
 import SriLankaFlag from "../assets/icons/Sri_Lanka_flag.svg";
 
-interface ContactSectionProps {
-  isDark: boolean;
-  contactMessage: string;
-  setContactMessage: (message: string) => void;
-}
-
-export default function ContactSection({ isDark, contactMessage, setContactMessage }: ContactSectionProps) {
+export default function ContactSection() {
+  const [contactMessage, setContactMessage] = useState("");
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const handleSetMessage = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setContactMessage(customEvent.detail);
+      }
+    };
+    window.addEventListener("set-contact-message", handleSetMessage);
+    return () => window.removeEventListener("set-contact-message", handleSetMessage);
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -74,7 +80,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
             Let's build something <span className="text-[#2563eb]">worth finding.</span>
           </h2>
 
-          <p className={`text-base leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+          <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400">
             I respond personally to every inquiry within 8 hours. Sri Lanka local time is GMT+5:30. Available for remote contract work worldwide.
           </p>
 
@@ -124,8 +130,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   href="https://github.com/pamuda2002"
                   target="_blank"
                   rel="noreferrer"
-                  className={`p-3 rounded-lg border transition-all ${isDark ? "border-gray-800 bg-[#0d1422] text-gray-300 hover:text-white" : "border-gray-300 bg-slate-100 text-gray-700 hover:text-black"
-                    }`}
+                  className="p-3 rounded-lg border transition-all border-gray-300 bg-slate-100 text-gray-700 hover:text-black dark:border-gray-800 dark:bg-[#0d1422] dark:text-gray-300 dark:hover:text-white"
                   aria-label="GitHub Profile"
                 >
                   <GithubIcon className="w-5 h-5" />
@@ -135,8 +140,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   href="https://www.instagram.com/psjayathilaka/"
                   target="_blank"
                   rel="noreferrer"
-                  className={`p-3 rounded-lg border transition-all ${isDark ? "border-gray-800 bg-[#0d1422] text-gray-300 hover:text-[#E1306C]" : "border-gray-300 bg-slate-100 text-gray-700 hover:text-[#E1306C]"
-                    }`}
+                  className="p-3 rounded-lg border transition-all border-gray-300 bg-slate-100 text-gray-700 hover:text-[#E1306C] dark:border-gray-800 dark:bg-[#0d1422] dark:text-gray-300 dark:hover:text-[#E1306C]"
                   aria-label="Instagram Profile"
                 >
                   <InstagramIcon className="w-5 h-5" />
@@ -146,8 +150,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   href="https://x.com/psjayathilaka"
                   target="_blank"
                   rel="noreferrer"
-                  className={`p-3 rounded-lg border transition-all ${isDark ? "border-gray-800 bg-[#0d1422] text-gray-300 hover:text-white" : "border-gray-300 bg-slate-100 text-gray-700 hover:text-black"
-                    }`}
+                  className="p-3 rounded-lg border transition-all border-gray-300 bg-slate-100 text-gray-700 hover:text-black dark:border-gray-800 dark:bg-[#0d1422] dark:text-gray-300 dark:hover:text-white"
                   aria-label="X (Twitter) Profile"
                 >
                   <XIcon className="w-5 h-5" />
@@ -157,8 +160,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                   href="https://wa.me/94768089712"
                   target="_blank"
                   rel="noreferrer"
-                  className={`p-3 rounded-lg border transition-all ${isDark ? "border-gray-800 bg-[#0d1422] text-gray-300 hover:text-[#25D366]" : "border-gray-300 bg-slate-100 text-gray-700 hover:text-[#25D366]"
-                    }`}
+                  className="p-3 rounded-lg border transition-all border-gray-300 bg-slate-100 text-gray-700 hover:text-[#25D366] dark:border-gray-800 dark:bg-[#0d1422] dark:text-gray-300 dark:hover:text-[#25D366]"
                   aria-label="WhatsApp Profile"
                 >
                   <WhatsappIcon className="w-5 h-5" />
@@ -182,8 +184,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
 
         {/* Right Column - Contact Form */}
         <div className="lg:col-span-7">
-          <div className={`p-5 sm:p-8 rounded-3xl border ${isDark ? "bg-[#0D1422]/95 border-gray-800" : "bg-slate-50 border-gray-200"
-            }`}>
+          <div className="p-5 sm:p-8 rounded-3xl border bg-slate-50 border-gray-200 dark:bg-[#0D1422]/95 dark:border-gray-800">
 
             <h3 className="text-xl font-bold mb-6 flex items-center space-x-2 text-left">
               <Send className="w-5 h-5 text-[#2563eb]" />
@@ -231,10 +232,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                     onChange={(e) => setContactName(e.target.value)}
                     placeholder="e.g. Acme Local Service Group"
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
-                      ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
-                      : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                    className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED] dark:bg-black/30 dark:border-gray-800 dark:text-white dark:focus:border-[#63B3ED] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                   />
                 </div>
 
@@ -253,10 +251,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="e.g. founder@acme.com"
                       disabled={isSubmitting}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
-                        ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
-                        : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                        } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                      className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED] dark:bg-black/30 dark:border-gray-800 dark:text-white dark:focus:border-[#63B3ED] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     />
                   </div>
 
@@ -272,10 +267,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                       onChange={(e) => setContactPhone(e.target.value)}
                       placeholder="e.g. +1 (555) 000-0000"
                       disabled={isSubmitting}
-                      className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
-                        ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
-                        : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                        } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                      className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED] dark:bg-black/30 dark:border-gray-800 dark:text-white dark:focus:border-[#63B3ED] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     />
                   </div>
                 </div>
@@ -305,10 +297,7 @@ export default function ContactSection({ isDark, contactMessage, setContactMessa
                     onChange={(e) => setContactMessage(e.target.value)}
                     placeholder="Describe what you sell, who you target, and your speed bottlenecks..."
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all ${isDark
-                      ? "bg-black/30 border-gray-800 text-white focus:border-[#63B3ED]"
-                      : "bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED]"
-                      } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+                    className={`w-full px-4 py-3 rounded-xl border text-sm font-mono outline-none transition-all bg-white border-gray-300 text-gray-900 focus:border-[#7C3AED] dark:bg-black/30 dark:border-gray-800 dark:text-white dark:focus:border-[#63B3ED] ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                   ></textarea>
                 </div>
 

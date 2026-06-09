@@ -3,10 +3,6 @@ import { ExternalLink, ShieldCheck } from "lucide-react";
 import { GithubIcon } from "../types";
 import ImageLightbox from "./ImageLightbox";
 
-interface ProjectsSectionProps {
-  isDark: boolean;
-}
-
 interface Project {
   id: string;
   title: string;
@@ -103,21 +99,12 @@ const projectsData: Project[] = [
 ];
 
 const chipColors = {
-  rose: {
-    dark: "bg-rose-500/10 text-rose-300 border-rose-500/20",
-    light: "bg-rose-50 text-rose-700 border-rose-200",
-  },
-  blue: {
-    dark: "bg-blue-500/10 text-blue-300 border-blue-500/20",
-    light: "bg-blue-50 text-blue-700 border-blue-200",
-  },
-  emerald: {
-    dark: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
-    light: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
+  rose: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-500/10 dark:text-rose-300 dark:border-rose-500/20",
+  blue: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-500/20",
+  emerald: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:border-emerald-500/20",
 };
 
-export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
+export default function ProjectsSection() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
@@ -181,7 +168,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
           Personal Projects — <br />
           <span className="text-[#63B3ED]">Real Code, Real Craft.</span>
         </h2>
-        <p className={`mt-4 text-sm max-w-xl transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+        <p className="mt-4 text-sm max-w-xl transition-colors text-slate-600 dark:text-gray-400">
           I don't display simple Todo list apps. These are functional open-source models, engines, and trackers created from scratch to test high-traffic stress.
         </p>
       </div>
@@ -189,18 +176,13 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
       {/* Desktop View (Static Grid) */}
       <div className="hidden md:grid grid-cols-3 gap-8">
         {projectsData.map((project, idx) => {
-          const colors = chipColors[project.accentColor];
           return (
             <article 
               key={project.id}
-              className={`rounded-3xl border overflow-hidden transition-all flex flex-col justify-between ${
-                isDark ? "bg-[#0D1422]/90 border-[#63B3ED]/25" : "bg-slate-50 border-gray-200 shadow-sm"
-              }`}
+              className="rounded-3xl border overflow-hidden transition-all flex flex-col justify-between bg-slate-50 border-gray-200 shadow-sm dark:bg-[#0D1422]/90 dark:border-[#63B3ED]/25"
             >
               {/* Visual Header representing project preview */}
-              <div className={`relative aspect-video overflow-hidden border-b transition-colors ${
-                isDark ? "border-gray-700/20" : "border-slate-200"
-              }`}>
+              <div className="relative aspect-video overflow-hidden border-b transition-colors border-slate-200 dark:border-gray-700/20">
                 <img 
                   src={project.previewImage} 
                   alt={project.previewAlt} 
@@ -215,7 +197,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className={`text-xs mb-4 transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                  <p className="text-xs mb-4 transition-colors text-slate-600 dark:text-gray-400">
                     {project.description}
                   </p>
                 </div>
@@ -227,7 +209,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                       <span 
                         key={chip} 
                         className={`text-[9px] font-mono px-2 py-0.5 rounded border transition-colors ${
-                          isDark ? colors.dark : colors.light
+                          chipColors[project.accentColor]
                         }`}
                       >
                         {chip}
@@ -236,12 +218,12 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                   </div>
 
                   {/* GitHub & Live demo buttons */}
-                  <div className={`flex items-center justify-between pt-4 border-t transition-colors ${isDark ? "border-gray-700/20" : "border-slate-200"}`}>
+                  <div className="flex items-center justify-between pt-4 border-t transition-colors border-slate-200 dark:border-gray-700/20">
                     <a 
                       href={project.githubUrl} 
                       target="_blank" 
                       rel="noreferrer" 
-                      className={`text-xs font-mono flex items-center space-x-1 transition-colors ${isDark ? "text-gray-400 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}
+                      className="text-xs font-mono flex items-center space-x-1 transition-colors text-slate-505 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white"
                     >
                       <GithubIcon className="w-3.5 h-3.5" />
                       <span>Source Code</span>
@@ -249,7 +231,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
 
                     <button 
                       onClick={() => handleOpenLightbox(idx)}
-                      className={`text-xs font-mono hover:underline flex items-center space-x-1 cursor-pointer transition-colors ${isDark ? "text-[#63B3ED]" : "text-blue-600"}`}
+                      className="text-xs font-mono hover:underline flex items-center space-x-1 cursor-pointer transition-colors text-blue-600 dark:text-[#63B3ED]"
                     >
                       <span>View Images</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -272,18 +254,13 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
           onTouchEnd={handleTouchEnd}
         >
           {projectsData.map((project, idx) => {
-            const colors = chipColors[project.accentColor];
             return (
               <div key={project.id} className="w-full shrink-0 px-1">
                 <article 
-                  className={`rounded-3xl border overflow-hidden transition-all flex flex-col justify-between ${
-                    isDark ? "bg-[#0D1422]/90 border-[#63B3ED]/25" : "bg-slate-50 border-gray-200 shadow-sm"
-                  }`}
+                  className="rounded-3xl border overflow-hidden transition-all flex flex-col justify-between bg-slate-50 border-gray-200 shadow-sm dark:bg-[#0D1422]/90 dark:border-[#63B3ED]/25"
                 >
                   {/* Visual Header representing project preview */}
-                  <div className={`relative aspect-video overflow-hidden border-b transition-colors ${
-                    isDark ? "border-gray-700/20" : "border-slate-200"
-                  }`}>
+                  <div className="relative aspect-video overflow-hidden border-b transition-colors border-slate-200 dark:border-gray-700/20">
                     <img 
                       src={project.previewImage} 
                       alt={project.previewAlt} 
@@ -298,7 +275,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                   <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
                       <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                      <p className={`text-xs mb-4 transition-colors ${isDark ? "text-gray-400" : "text-slate-600"}`}>
+                      <p className="text-xs mb-4 transition-colors text-slate-600 dark:text-gray-400">
                         {project.description}
                       </p>
                     </div>
@@ -310,7 +287,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                           <span 
                             key={chip} 
                             className={`text-[9px] font-mono px-2 py-0.5 rounded border transition-colors ${
-                              isDark ? colors.dark : colors.light
+                              chipColors[project.accentColor]
                             }`}
                           >
                             {chip}
@@ -319,12 +296,12 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
                       </div>
 
                       {/* GitHub & Live demo buttons */}
-                      <div className={`flex items-center justify-between pt-4 border-t transition-colors ${isDark ? "border-gray-700/20" : "border-slate-200"}`}>
+                      <div className="flex items-center justify-between pt-4 border-t transition-colors border-slate-200 dark:border-gray-700/20">
                         <a 
                           href={project.githubUrl} 
                           target="_blank" 
                           rel="noreferrer" 
-                          className={`text-xs font-mono flex items-center space-x-1 transition-colors ${isDark ? "text-gray-400 hover:text-white" : "text-slate-500 hover:text-slate-900"}`}
+                          className="text-xs font-mono flex items-center space-x-1 transition-colors text-slate-505 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white"
                         >
                           <GithubIcon className="w-3.5 h-3.5" />
                           <span>Source Code</span>
@@ -332,7 +309,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
 
                         <button 
                           onClick={() => handleOpenLightbox(idx)}
-                          className={`text-xs font-mono hover:underline flex items-center space-x-1 cursor-pointer transition-colors ${isDark ? "text-[#63B3ED]" : "text-blue-600"}`}
+                          className="text-xs font-mono hover:underline flex items-center space-x-1 cursor-pointer transition-colors text-blue-600 dark:text-[#63B3ED]"
                         >
                           <span>View Images</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -365,11 +342,7 @@ export default function ProjectsSection({ isDark }: ProjectsSectionProps) {
 
       {/* Honest label */}
       <div className="mt-8 text-center px-4">
-        <p className={`text-xs font-mono px-4 py-2.5 rounded-2xl sm:rounded-full inline-block max-w-full text-left sm:text-center border transition-all ${
-          isDark 
-            ? "text-gray-400 bg-blue-500/5 border-blue-500/10" 
-            : "text-slate-600 bg-blue-50 border-blue-200/60"
-        }`}>
+        <p className="text-xs font-mono px-4 py-2.5 rounded-2xl sm:rounded-full inline-block max-w-full text-left sm:text-center border transition-all text-slate-600 bg-blue-50 border-blue-200/60 dark:text-gray-400 dark:bg-blue-500/5 dark:border-blue-500/10">
           <ShieldCheck className="w-4 h-4 text-blue-500 dark:text-[#63B3ED] inline-block mr-1 align-text-bottom shrink-0" /> <strong>Personal Projects Statement:</strong> Real code, real craft. (I build every project with obsessive attention to detail, ready for client deployment. No lazy copy-pasting.)
         </p>
       </div>
