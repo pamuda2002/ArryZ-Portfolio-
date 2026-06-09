@@ -208,7 +208,36 @@
   animation: fadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Glowing and moving light effect for the hero name "ArryZ" (Keyboard Wave) */
+/* Outer wrapper that holds the glow drop-shadow filter animation */
+.arryz-glow-wrapper {
+  display: inline-block;
+  /* Bind keyboard glow animation */
+  animation: arryz-keyboard-glow 8.5s linear infinite;
+}
+
+@keyframes arryz-keyboard-glow {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
+            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
+  }
+  /* Active sweep phase: 30% of total duration (glow peaks at 15%) */
+  15% {
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6))
+            drop-shadow(0 0 20px rgba(37, 99, 235, 0.35))
+            drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
+  }
+  30% {
+    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
+            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
+  }
+  /* Rest phase: Keep highlight off-screen until next cycle starts */
+  100% {
+    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
+            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
+  }
+}
+
+/* Inner text span containing the gradient and text clipping wave animation */
 .arryz-glow-text {
   background-image: linear-gradient(
     120deg,
@@ -224,36 +253,20 @@
   color: transparent;
   display: inline-block;
   
-  /* Initial low glow matching 0% keyframe */
-  filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
-          drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
-  
-  /* Bind keyboard wave animation (slowed down to 8.5s, looping instantly from Z back to A) */
+  /* Bind keyboard wave text gradient sweep */
   animation: arryz-keyboard-wave 8.5s linear infinite;
 }
 
 @keyframes arryz-keyboard-wave {
   0% {
     background-position: 150% center;
-    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
-            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
-  }
-  /* Active sweep phase: 30% of total duration (glow peaks at 15%) */
-  15% {
-    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6))
-            drop-shadow(0 0 20px rgba(37, 99, 235, 0.35))
-            drop-shadow(0 0 3px rgba(255, 255, 255, 0.35));
   }
   30% {
     background-position: -50% center;
-    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
-            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
   }
   /* Rest phase: Keep highlight off-screen until next cycle starts */
   100% {
     background-position: -50% center;
-    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3))
-            drop-shadow(0 0 10px rgba(37, 99, 235, 0.15));
   }
 }
 
@@ -301,8 +314,12 @@
 /* Pause heavy floating orb animations on mobile — use static positioning instead */
 @media (max-width: 767px) {
   /* Simplify the ArryZ glow text on mobile — remove expensive filter drop-shadows */
-  .arryz-glow-text {
+  .arryz-glow-wrapper {
     filter: none !important;
+    animation: none !important;
+  }
+  
+  .arryz-glow-text {
     animation: arryz-keyboard-wave 12s linear infinite;
   }
   
@@ -313,7 +330,8 @@
   }
 }
 
-/* Respect prefers-reduced-motion accessibility setting */
+/* Disabled prefers-reduced-motion media query to ensure transitions and animations play correctly on all systems */
+/*
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -321,4 +339,5 @@
     transition-duration: 0.01ms !important;
   }
 }
+*/
 

@@ -110,12 +110,19 @@ export default function HeroSection({ isDark, scrollTo }: HeroSectionProps) {
                   }}
                 >
                   <span
-                    className="inline-block transition-all duration-700 hover:scale-115 hover:-rotate-3 hover:brightness-125 cursor-pointer arryz-glow-text"
+                    className="inline-block transition-all duration-700 hover:scale-115 hover:-rotate-3 hover:brightness-125 cursor-pointer arryz-glow-wrapper"
                     style={{
                       animationDelay: `${index * 1.5}s`
                     }}
                   >
-                    {char}
+                    <span
+                      className="inline-block arryz-glow-text"
+                      style={{
+                        animationDelay: `${index * 1.5}s`
+                      }}
+                    >
+                      {char}
+                    </span>
                   </span>
                 </span>
               ))}
