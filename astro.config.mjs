@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://arryz.dev",
   compressHTML: true,
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   integrations: [sitemap(), react()],
   vite: {
     plugins: [
