@@ -5,7 +5,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://arryz.dev",
+  site: "https://www.arryz.dev",
   compressHTML: true,
   trailingSlash: "ignore",
   integrations: [sitemap(), react()],
